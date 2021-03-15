@@ -111,9 +111,10 @@ class ProductController extends Controller
                 $product->image()->create(['url' => $path]);
             }
         }
-        foreach ($request->tags as $tag_id) {
-            $product->tags()->sync(intval($tag_id));
+        if ($request->tags) {
+            $product->tags()->sync($request->tags);
         }
+
         $product->save();
         return redirect()->back()->with('success', 'Sửa thành công !');
     }
@@ -122,6 +123,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        $product->tags()->detach();
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Xóa thành công !');

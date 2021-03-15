@@ -13,7 +13,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
             <div class="info">
-                <a href="#" class="d-block">Hello {\Auth::user()->name}}</a>
+                <a href="#" class="d-block">Hello {{\Auth::user()->name}}</a>
             </div>
         </div>
 
@@ -94,6 +94,43 @@
                             Tags
                         </p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('users.index')}}" class="nav-link">
+                        <i class="nav-icon fa fa-th"></i>
+                        <p>
+                            Users
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a class="nav-link">
+                        <i class="nav-icon fa fa-table"></i>
+                        <p>
+                            Analytics
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: block;">
+                        <li class="nav-item">
+                            <a href="{{route('analytics_by_day')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>By Day</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('analytics_by_month')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>By Month</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('analytics_loyal_customer')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Loyal Customer</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

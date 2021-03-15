@@ -43,6 +43,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
        return view('backend.index');
     });
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('comments', \App\Http\Controllers\CommentController::class);
     Route::resource('imports', \App\Http\Controllers\ImportController::class);
     Route::resource('import_details', \App\Http\Controllers\ImportDetailController::class);
@@ -51,6 +52,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('products', \App\Http\Controllers\ProductController::class);
     Route::resource('payment_methods', \App\Http\Controllers\PaymentMethodController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
+
+    Route::get('analytics-by-day', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByDay'])->name('analytics_by_day');
+    Route::get('analytics-by-month', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByMonth'])->name('analytics_by_month');
+    Route::get('analytics-loyal-customer', [\App\Http\Controllers\AnalyticsController::class, 'analyticsLoyalCustomer'])->name('analytics_loyal_customer');
+    Route::get('loyal-customer-order-details/{userId}', [\App\Http\Controllers\AnalyticsController::class, 'loyalCustomerOrderDetail'])->name('loyal_customer_order_details');
 });
 
 Route::get('login', [\App\Http\Controllers\PageController::class, 'login'])->name('login');

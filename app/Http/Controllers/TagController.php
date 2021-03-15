@@ -64,6 +64,7 @@ class TagController extends Controller
     public function destroy($id)
     {
         $tag = Tag::find($id);
+        $tag->products()->detach();
         $tag->delete();
 
         return redirect()->route('tags.index')->with('success', 'Xóa thành công !');

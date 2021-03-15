@@ -64,14 +64,14 @@
                                                     </a>
                                                 </td>
                                                 <td class="product-name">
-                                                    <a href="{{route('single_product', $orderItem->id)}}">{{$orderItem->product->name}}</a>
+                                                    <a href="{{route('single_product', $orderItem->id)}}">{{$orderItem->name}}</a>
                                                 </td>
 
                                                 <td class="product-price">
                                                     <span class="amount">{{$orderItem->quantity}}</span>
                                                 </td>
                                                 <td class="product-price">
-                                                    <span class="amount">£{{number_format($orderItem->product->price, 2)}}</span>
+                                                    <span class="amount">£{{number_format($orderItem->price, 2)}}</span>
                                                 </td>
                                             </tr>
                                         @endforeach

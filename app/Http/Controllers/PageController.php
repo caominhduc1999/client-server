@@ -9,13 +9,26 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Stripe;
 
 class PageController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $topSellerProducts = DB::table('order_details')
+            ->leftJoin('products','products.id','=','order_details.product_id')
+            ->select('products.id','products.name','order_details.product_id',
+                DB::raw('SUM(order_details.quantity) as total'))
+            ->groupBy('products.id','order_details.product_id','products.name')
+            ->orderBy('total','desc')
+            ->limit(3)
+            ->get();
+
+        $latestProducts = Product::orderBy('created_at', 'desc')->take(10)->get();
+        $featureProducts = Product::where('is_feature', 1)->orderBy('created_at', 'desc')->take(3)->get();
+        $hotProducts = Product::where('is_hot', 1)->orderBy('created_at', 'desc')->take(3)->get();
+        return view('frontend.index', compact('latestProducts', 'featureProducts', 'hotProducts', 'topSellerProducts'));
     }
 
     public function shop($id = null)
@@ -105,6 +118,8 @@ class PageController extends Controller
             $orderDetail->product_id = $item->id;
             $orderDetail->order_id = $order->id;
             $orderDetail->quantity = $item->quantity;
+            $orderDetail->price = $item->price;
+            $orderDetail->name = $item->name;
             $orderDetail->save();
         }
 
@@ -168,11 +183,11 @@ class PageController extends Controller
             ],
             [
                 'email.required'     =>  'Mời nhập email',
-                'email.email' =>  'Emial không đúng định dạng',
+                'email.email' =>  'Email không đúng định dạng',
                 'password.required'          =>  'Mời nhập mật khẩu',
             ]);
 
-        if (Auth::attempt(['email'=>$request->email, 'password'=>($request->password)]))
+        if (Auth::attempt(['email'=>$request->email, 'password'=>($request->password)], $request->remember_me))
         {
             if (Auth::user()->user_type == 2) //customer
             {
@@ -194,10 +209,22 @@ class PageController extends Controller
 
     public function postRegister(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|unique:users,phone',
+            'password' => 'required',
+            'password_confirm' => 'required|same:password',
+            'user_type' => 'required'
+        ], [
+            'name.required' => 'Vui lòng nhập tên user'
+        ]);
+
         $user = User::create($request->all());
         $user->user_type = 2;
         $user->save();
 
+        Auth::loginUsingId($user->id);
         return redirect('index');
     }
 
