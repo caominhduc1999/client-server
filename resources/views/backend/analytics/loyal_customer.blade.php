@@ -10,14 +10,14 @@
                 <div class="card-header">
                     <h3 class="card-title">Loyal Customer</h3>
                     <div class="form-group">
-                        <form action="{{route('analytics_by_month')}}" method="get">
+                        <form action="{{route('analytics_loyal_customer')}}" method="get">
                             <div class="row">
                                 <br>
                                 <div class="col-md-10">
                                     <select class="form-control" name="month" id="">
                                         <option value="">Select Month</option>
                                         @for($i =1; $i <= 12; $i++)
-                                            <option value="{{$i}}">{{$i}}</option>
+                                            <option value="{{$i}}">{{date("F", mktime(0, 0, 0, $i, 10))}}</option>
                                         @endfor
                                     </select>
                                 </div>
@@ -36,11 +36,11 @@
                 <div class="card-body">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Top Loyal Customer</h3>
+                            <h3 class="card-title">Top Loyal Customer in {{date("F", mktime(0, 0, 0, $month, 10))}}</h3>
 
                             <div class="card-tools">
                                 <div>
-
+                                        <a href="{{route('loyal_customer_export')}}"><button class="btn btn-outline-success">Export Excel</button></a>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                                     <td>{{$customer->name}}</td>
                                                     <td>{{$customer->email}}</td>
                                                     <td>{{$customer->phone}}</td>
-                                                    <td>${{number_format($customer->orders->sum('total'), 2)}}</td>
+                                                    <td>${{number_format($customer->total, 2)}}</td>
                                                     <td>
                                                         <a href="{{route('loyal_customer_order_details', $customer->id)}}"><button class="btn btn-primary">Check History</button></a>
                                                     </td>

@@ -40,7 +40,9 @@
 
                             <div class="card-tools">
                                 <div>
-
+                                    <div>
+                                        <a href="{{route('analytics_by_month_export')}}"><button class="btn btn-outline-success">Export Excel</button></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

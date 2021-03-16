@@ -47,7 +47,7 @@
 
                             <div class="card-tools">
                                 <div>
-
+                                    <a href="{{route('analytics_by_day_export', ['from_date' => $from_date, 'to_date' => $to_date])}}"><button class="btn btn-outline-success">Export Excel</button></a>
                                 </div>
                             </div>
                         </div>

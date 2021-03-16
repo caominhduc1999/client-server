@@ -36,7 +36,7 @@ class AnalyticsController extends Controller
 
         $products = DB::table('order_details')
             ->leftJoin('products','products.id','=','order_details.product_id')
-            ->wheremonth('order_details.created_at', '=', $month)
+            ->whereMonth('order_details.created_at', '=', $month)
             ->select('products.id','products.name','order_details.product_id','order_details.price',
                 DB::raw('SUM(order_details.quantity) as total_quantity'),
                 DB::raw('SUM(order_details.price * order_details.quantity) as total_price'))
@@ -47,15 +47,40 @@ class AnalyticsController extends Controller
         return view('backend.analytics.analytics_by_month', compact('products', 'month'));
     }
 
-    public function analyticsLoyalCustomer()
+    public function analyticsLoyalCustomer(Request $request)
     {
-        $customers = User::where('user_type', 2)->get();
-        return view('backend.analytics.loyal_customer', compact('customers'));
+        $month = $request->month ? $request->month : now()->month;
+
+        $customers = DB::table('users')
+            ->join('orders', 'orders.user_id', '=', 'users.id')
+            ->whereMonth('orders.created_at', '=', $month)
+            ->select('users.id', 'users.name', 'orders.user_id', 'orders.phone', 'orders.email', DB::raw('SUM(orders.total) as total'))
+            ->groupBy('users.id', 'users.name', 'orders.user_id', 'orders.phone', 'orders.email')
+            ->take(5)
+            ->orderBy('total', 'desc')
+            ->get();
+
+        return view('backend.analytics.loyal_customer', compact('customers', 'month'));
     }
 
     public function loyalCustomerOrderDetail($userId)
     {
         $orders = Order::with('order_details')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
         return view('backend.analytics.loyal_customer_order_details', compact('orders', 'userId'));
+    }
+
+    public function analyticsByDayExport()
+    {
+        return \Excel::download(new \App\Exports\AnalyticsByDay(), 'analytics_by_day.xlsx');
+    }
+
+    public function analyticsByMonthExport()
+    {
+        return \Excel::download(new \App\Exports\AnalyticsByMonth(), 'analytics_by_month.xlsx');
+    }
+
+    public function loyalCustomerExport()
+    {
+        return \Excel::download(new \App\Exports\LoyalCustomer(), 'loyal_customer.xlsx');
     }
 }
