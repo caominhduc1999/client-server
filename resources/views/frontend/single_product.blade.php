@@ -24,22 +24,68 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="product-images">
+                                <div class="product-images" >
                                     <div class="product-main-img">
                                         @foreach($product->image as $key => $image)
                                             @if($key == 0)
-                                                <img src="{{url('storage/' . $image->url)}}" alt="">
+                                                <img id="focus" src="{{url('storage/' . $image->url)}}" alt="">
                                             @endif
                                         @endforeach
+
                                     </div>
 
-                                    <div class="product-gallery">
+
+                                    <div class="product-gallery gallery" >
+                                            <div class="thumbnails" >
                                         @foreach($product->image as $image)
-                                            <img src="{{url('storage/' . $image->url)}}" alt="">
+                                                <img src="{{url('storage/' . $image->url)}}" alt="">
                                         @endforeach
+                                            </div>
                                     </div>
                                 </div>
                             </div>
+                            <style>
+                                gallery {
+                                    margin: 5px;
+                                    border: 1px solid #ccc;
+                                    float: left;
+                                    width: 180px;
+                                }
+
+                                .gallery img:hover {
+                                    border: 1px solid #777;
+
+                                }
+
+
+                                .gallery img {
+                                    width: 30%;
+                                    height: 80px;
+                                }
+
+                                .focus {
+                                    position: fixed;
+                                    text-align: center;
+                                    vertical-align: center;
+                                    margin-left: 50px;
+                                    margin-top: 100px;
+                                    border: 4px solid white;
+                                }
+                            </style>
+                            <script>
+                                window.onload = function () {
+                                    var imgs = document.getElementsByTagName('img');
+                                    for(var i=0 ; i<imgs.length ; i++){
+                                        var img = imgs[i];
+                                        img.onclick = function () {
+                                            newSrc = this.src;
+                                            focus = document.getElementById('focus');
+                                            focus.src = newSrc;
+                                        }
+                                    }
+                                }
+                            </script>
+
 
                             <div class="col-sm-6">
                                 <div class="product-inner">
