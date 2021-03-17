@@ -78,13 +78,18 @@
                                                 <form action="{{route('apply_coupon')}}" method="post">
                                                     @csrf
                                                     <label for="coupon_code">Coupon:</label>
-                                                    <input type="text" placeholder="Coupon code" value="{{session()->get('coupon')->first() ? session()->get('coupon')->first()->code : ''}}" id="coupon_code" class="input-text" name="coupon_code">
+                                                    <input type="text" placeholder="Coupon code" value="{{session()->has('coupon') ? session()->get('coupon')->first()->code : ''}}" id="coupon_code" class="input-text" name="coupon_code">
                                                     <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
                                                 </form>
                                                 <br>
-                                                @if(session('notify'))
+                                                @if(session('notify_success'))
+                                                    <div class="alert alert-success">
+                                                        {{session('notify_success')}}
+                                                    </div>
+                                                @endif
+                                                @if(session('notify_failed'))
                                                     <div class="alert alert-danger">
-                                                        {{session('notify')}}
+                                                        {{session('notify_failed')}}
                                                     </div>
                                                 @endif
                                             </div>
@@ -108,12 +113,12 @@
 
                                         <tr class="shipping">
                                             <th>Discount</th>
-                                            <td>{{session()->get('coupon')->first() ? session()->get('coupon')->first()->discount : 0}}%</td>
+                                            <td>{{session()->has('coupon') ? session()->get('coupon')->first()->discount : 0}}%</td>
                                         </tr>
 
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£{{number_format($subTotal * (100 - (session()->get('coupon')->first() ? session()->get('coupon')->first()->discount : 0)) / 100, 2)}}</span></strong> </td>
+                                            <td><strong><span class="amount">£{{number_format($subTotal * (100 - (session()->has('coupon') ? session()->get('coupon')->first()->discount : 0)) / 100, 2)}}</span></strong> </td>
                                         </tr>
                                         </tbody>
                                     </table>

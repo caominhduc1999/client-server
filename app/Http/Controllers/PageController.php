@@ -64,7 +64,6 @@ class PageController extends Controller
 
     public function cart()
     {
-
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $cartItems = \Cart::session($userId)->getContent();
         $subTotal = \Cart::session($userId)->getSubTotal();
@@ -85,9 +84,9 @@ class PageController extends Controller
         $coupon = Coupon::where([['code', $request->coupon_code],['status', 1]])->get();
         if (count($coupon)) {
             session()->put('coupon', $coupon);
-            return redirect()->back();
+            return redirect()->back()->with('notify_success', 'Applied Code');
         } else {
-            return redirect()->back()->with('notify', 'Invalid / Outdated Code');
+            return redirect()->back()->with('notify_failed', 'Invalid / Outdated Code');
         }
     }
 
