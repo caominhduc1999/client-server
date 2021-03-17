@@ -46,14 +46,14 @@
                                                     <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                         <label class="" for="billing_first_name">Name <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->name : ''}}" placeholder="" id="billing_first_name" name="name" class="input-text ">
+                                                        <input type="text" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->name : ''}}" placeholder="" id="billing_first_name" name="name" class="input-text " required>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <p id="billing_last_name_field" class="form-row form-row-last validate-required">
                                                         <label class="" for="billing_last_name">Phone <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->phone : ''}}" placeholder="" id="billing_last_name" name="phone" class="input-text ">
+                                                        <input type="text" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->phone : ''}}" placeholder="" id="billing_last_name" name="phone" class="input-text " required>
                                                     </p>
                                                     <div class="clear"></div>
                                                 </div>
@@ -61,7 +61,7 @@
                                                     <p id="billing_last_name_field" class="form-row form-row-last validate-required">
                                                         <label class="" for="billing_last_name">Email <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input style="width: 100%" type="email" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->email : ''}}" placeholder="" id="billing_last_name" name="email" class="input-text ">
+                                                        <input style="width: 100%" type="email" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->email : ''}}" placeholder="" id="billing_last_name" name="email" class="input-text " required>
                                                     </p>
                                                     <div class="clear"></div>
                                                 </div>
@@ -69,7 +69,7 @@
                                                     <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                         <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" value="" placeholder="Street address" id="billing_address_1" name="address" class="input-text ">
+                                                        <input type="text" value="" placeholder="Street address" id="billing_address_1" name="address" class="input-text " required>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-12">
@@ -83,9 +83,9 @@
                                                     <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                         <label class="" for="billing_address_1">Payment Method <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="radio" checked value="1"  id="billing_address_1" name="payment_method" class="input-text ">COD
+                                                        <input type="radio" checked value="1"  id="billing_address_1" name="payment_method" class="input-text " >COD
                                                         <br>
-                                                        <input type="radio" value="2"  id="billing_address_1" name="payment_method" class="input-text ">Stripe
+                                                        <input type="radio" value="2"  id="billing_address_1" name="payment_method" class="input-text " >Stripe
                                                     </p>
                                                 </div>
                                             </div>
@@ -124,14 +124,14 @@
                                             <tr class="shipping">
                                                 <th>Discount</th>
                                                 <td>
-                                                    <span class="amount">{{$discount}}%</span>
+                                                    <span class="amount">{{session()->has('coupon') ? session()->get('coupon')[0]->discount : 0}}%</span>
                                                 </td>
                                             </tr>
 
 
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£{{number_format($subTotal * (100 - $discount) / 100, 2)}}</span></strong> </td>
+                                            <td><strong><span class="amount">£{{number_format($subTotal * (100 - (session()->has('coupon') ? session()->get('coupon')[0]->discount : 0)) / 100, 2)}}</span></strong> </td>
                                         </tr>
 
                                         </tfoot>

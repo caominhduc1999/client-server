@@ -62,7 +62,12 @@
                                     </form>
 
                                     <div class="product-inner-category">
-                                        <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                                        <p>Category: <a href="{{route('shop', $product->category->id)}}">{{$product->category->name}}</a>.
+                                            Tags:
+                                            @foreach($product->tags as $tag)
+                                                <a href="">{{$tag->name}}</a>,
+                                            @endforeach
+                                        </p>
                                     </div>
 
                                     <div role="tabpanel">
@@ -111,7 +116,7 @@
                                     <div class="product-f-image">
                                         @foreach($product->image as $key => $image)
                                             @if($key == 0)
-                                                <img src="{{url('storage/' . $image->url)}}" alt="">
+                                                <img src="{{url('storage/' . $image->url)}}" alt="" style="height: 200px">
                                             @endif
                                         @endforeach
                                         <div class="product-hover">

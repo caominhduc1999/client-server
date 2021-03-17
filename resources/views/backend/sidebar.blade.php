@@ -96,6 +96,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('coupons.index')}}" class="nav-link">
+                        <i class="nav-icon fa fa-th"></i>
+                        <p>
+                            Coupons
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('users.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-th"></i>
                         <p>
@@ -128,6 +136,12 @@
                             <a href="{{route('analytics_loyal_customer')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Loyal Customer</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('analytics_imports')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Imports</p>
                             </a>
                         </li>
                     </ul>

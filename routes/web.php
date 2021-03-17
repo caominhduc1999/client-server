@@ -38,6 +38,8 @@ Route::post('/order', [\App\Http\Controllers\PageController::class, 'order'])->n
 
 Route::get('stripe', [\App\Http\Controllers\PageController::class, 'stripe'])->name('stripe_form');
 
+Route::post('apply-coupon', [\App\Http\Controllers\PageController::class, 'applyCoupon'])->name('apply_coupon');
+
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', function (){
        return view('backend.index');
@@ -52,14 +54,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('products', \App\Http\Controllers\ProductController::class);
     Route::resource('payment_methods', \App\Http\Controllers\PaymentMethodController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
+    Route::resource('coupons', \App\Http\Controllers\CouponController::class);
 
     Route::get('analytics-by-day', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByDay'])->name('analytics_by_day');
     Route::get('analytics-by-month', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByMonth'])->name('analytics_by_month');
+    Route::get('analytics-imports', [\App\Http\Controllers\AnalyticsController::class, 'analyticsImport'])->name('analytics_imports');
     Route::get('analytics-loyal-customer', [\App\Http\Controllers\AnalyticsController::class, 'analyticsLoyalCustomer'])->name('analytics_loyal_customer');
     Route::get('loyal-customer-order-details/{userId}', [\App\Http\Controllers\AnalyticsController::class, 'loyalCustomerOrderDetail'])->name('loyal_customer_order_details');
+
     Route::get('analytics-by-day-export', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByDayExport'])->name('analytics_by_day_export');
     Route::get('analytics-by-month-export', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByMonthExport'])->name('analytics_by_month_export');
     Route::get('loyal-customer-export', [\App\Http\Controllers\AnalyticsController::class, 'loyalCustomerExport'])->name('loyal_customer_export');
+    Route::get('analytics-import-export', [\App\Http\Controllers\AnalyticsController::class, 'analyticsImportExport'])->name('analytics_imports_export');
+
 });
 
 Route::get('login', [\App\Http\Controllers\PageController::class, 'login'])->name('login');

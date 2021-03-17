@@ -69,6 +69,25 @@ class AnalyticsController extends Controller
         return view('backend.analytics.loyal_customer_order_details', compact('orders', 'userId'));
     }
 
+    public function analyticsImport(Request $request)
+    {
+        $from_date = $request->from_date ? $request->from_date : today();
+        $to_date = $request->to_date ? $request->to_date : today();
+
+        $imports = DB::table('import_details')
+            ->leftJoin('products','products.id','=','import_details.product_id')
+            ->whereDate('import_details.created_at', '>=', $from_date)
+            ->whereDate('import_details.created_at', '<=', $to_date)
+            ->select('products.id','products.name','import_details.product_id',
+                DB::raw('SUM(import_details.quantity) as total_quantity'),
+                DB::raw('SUM(products.price * import_details.quantity) as total_price'))
+            ->groupBy('products.id','import_details.product_id','products.name')
+            ->orderBy('total_quantity','desc')
+            ->get();
+
+        return view('backend.analytics.analytics_imports', compact('imports', 'from_date', 'to_date'));
+    }
+
     public function analyticsByDayExport()
     {
         return \Excel::download(new \App\Exports\AnalyticsByDay(), 'analytics_by_day.xlsx');
@@ -82,5 +101,10 @@ class AnalyticsController extends Controller
     public function loyalCustomerExport()
     {
         return \Excel::download(new \App\Exports\LoyalCustomer(), 'loyal_customer.xlsx');
+    }
+
+    public function analyticsImportExport()
+    {
+        return \Excel::download(new \App\Exports\AnalyticsImport(), 'analytics_imports.xlsx');
     }
 }

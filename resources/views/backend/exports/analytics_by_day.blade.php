@@ -18,5 +18,12 @@
             <td>${{number_format($product->total_price, 2)}}</td>
         </tr>
     @endforeach
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{$products->sum('total_quantity')}}</td>
+            <td>${{number_format($products->sum('total_price'), 2)}}</td>
+        </tr>
     </tbody>
 </table>

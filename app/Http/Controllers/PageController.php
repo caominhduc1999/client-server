@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentMethod;
@@ -63,11 +64,11 @@ class PageController extends Controller
 
     public function cart()
     {
+
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $cartItems = \Cart::session($userId)->getContent();
         $subTotal = \Cart::session($userId)->getSubTotal();
-        $discount = 10;
-        return view('frontend.cart', compact('cartItems', 'subTotal', 'discount'));
+        return view('frontend.cart', compact('cartItems', 'subTotal'));
     }
 
     public function checkout()
@@ -75,9 +76,19 @@ class PageController extends Controller
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $cartItems = \Cart::session($userId)->getContent();
         $subTotal = \Cart::session($userId)->getSubTotal();
-        $discount = 0;
         $paymentMethods = PaymentMethod::where('status', 1)->get();
-        return view('frontend.checkout', compact('cartItems', 'subTotal', 'discount', 'paymentMethods'));
+        return view('frontend.checkout', compact('cartItems', 'subTotal', 'paymentMethods'));
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $coupon = Coupon::where([['code', $request->coupon_code],['status', 1]])->get();
+        if (count($coupon)) {
+            session()->put('coupon', $coupon);
+            return redirect()->back();
+        } else {
+            return redirect()->back()->with('notify', 'Invalid / Outdated Code');
+        }
     }
 
     public function stripe()
@@ -103,7 +114,8 @@ class PageController extends Controller
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $order = new Order();
         $order->user_id = Auth::check() ? Auth::id() : 0;
-        $order->total = \Cart::session($userId)->getTotal();
+        $order->coupon_id = session()->has('coupon') ? session()->get('coupon')[0]->id : 0;
+        $order->total = session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')[0]->discount) / 100 : \Cart::session($userId)->getTotal();
         $order->status = 0;
         $order->notes = $request->notes ? $request->notes : session()->get('notes');
         $order->phone = $request->phone ? $request->phone : session()->get('phone');
@@ -134,6 +146,13 @@ class PageController extends Controller
         }
 
         \Cart::session($userId)->clear();
+        session()->forget('notes');
+        session()->forget('phone');
+        session()->forget('email');
+        session()->forget('address');
+        session()->forget('payment_method');
+        session()->forget('coupon');
+
         session()->flash('success', 'Payment successful!');
 
         return redirect()->route('checkout')->with('success', 'Place Order Successfully !');
@@ -215,7 +234,7 @@ class PageController extends Controller
             'phone' => 'required|unique:users,phone',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
-            'user_type' => 'required'
+
         ], [
             'name.required' => 'Vui lòng nhập tên user'
         ]);

@@ -19,7 +19,8 @@ class Order extends Model
         'phone',
         'email',
         'address',
-        'payment_method_id'
+        'payment_method_id',
+        'coupon_id'
     ];
 
     public function order_details()
@@ -40,6 +41,11 @@ class Order extends Model
     public function payment_method()
     {
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class, 'coupon_id');
     }
 
     public function getStatusName()

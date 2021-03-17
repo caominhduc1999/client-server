@@ -39,7 +39,7 @@
                                 <tbody>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Vendor</th>
+                                    <th>Import</th>
                                     <th>Product</th>
                                     <th>Quantity</th>
                                     <th>Action</th>
