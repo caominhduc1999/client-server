@@ -35,7 +35,11 @@
                                     <label for="exampleInputEmail1">Name</label>
                                     <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{$category->name}}">
                                 </div>
-
+                                @if ($errors->has('name'))
+                                    <div class="alert alert-danger">
+                                        {{ $errors->first('name') }}
+                                    </div>
+                                @endif
                             </div>
                             <!-- /.card-body -->
 

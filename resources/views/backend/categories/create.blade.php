@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{old('name')}}">
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('name') }}

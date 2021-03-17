@@ -39,11 +39,19 @@ Route::post('/order', [\App\Http\Controllers\PageController::class, 'order'])->n
 Route::get('stripe', [\App\Http\Controllers\PageController::class, 'stripe'])->name('stripe_form');
 
 Route::post('apply-coupon', [\App\Http\Controllers\PageController::class, 'applyCoupon'])->name('apply_coupon');
+Route::post('product-review/{id}', [\App\Http\Controllers\PageController::class, 'productReview'])->name('product_review');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', function (){
-       return view('backend.index');
+        if (\Illuminate\Support\Facades\Auth::user()->user_type != 2)
+        {
+            return view('backend.index');
+        } else {
+            abort(403);
+        }
     });
+    Route::get('profile', [\App\Http\Controllers\UserController::class, 'getProfile'])->name('profile.get');
+    Route::post('profile', [\App\Http\Controllers\UserController::class, 'postProfile'])->name('profile.post');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('comments', \App\Http\Controllers\CommentController::class);

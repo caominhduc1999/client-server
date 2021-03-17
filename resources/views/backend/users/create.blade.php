@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{old('name')}}">
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('name') }}
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email</label>
-                                    <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="{{old('email')}}">
                                     @if ($errors->has('email'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('email') }}
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Phone</label>
-                                    <input type="text" name="phone" class="form-control" id="exampleInputEmail1" placeholder="Enter phone">
+                                    <input type="text" name="phone" class="form-control" id="exampleInputEmail1" placeholder="Enter phone" value="{{old('phone')}}">
                                     @if ($errors->has('phone'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('phone') }}
@@ -79,9 +79,9 @@
                                     <label for="exampleInputEmail1">User Type</label>
                                     <select class="form-control" name="user_type" id="">
                                         <option value="">Select Type</option>
-                                        <option value="1">Admin</option>
-                                        <option value="2">Customer</option>
-                                        <option value="3">Vendor</option>
+                                        <option value="1" @if(old('user_type') == 1) selected @endif>Admin</option>
+                                        <option value="2" @if(old('user_type') == 2) selected @endif>Customer</option>
+                                        <option value="3" @if(old('user_type') == 3) selected @endif>Vendor</option>
                                     </select>
                                     @if ($errors->has('user_type'))
                                         <div class="alert alert-danger">

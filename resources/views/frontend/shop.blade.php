@@ -26,7 +26,7 @@
                             <div class="product-upper">
                                 @foreach($product->image as $key => $image)
                                     @if($key == 0)
-                                        <img src="{{url('storage/' . $image->url)}}" alt="" style="height: 300px; width: 100%">
+                                        <img src="{{url('storage/' . $image->url)}}" alt="" style="height: 200px; width: 100%">
                                     @endif
                                 @endforeach
                             </div>

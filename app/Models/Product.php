@@ -22,6 +22,8 @@ class Product extends Model
         'vendor_id',
     ];
 
+    protected $morphClass = 'product';
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

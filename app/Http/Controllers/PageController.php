@@ -252,4 +252,16 @@ class PageController extends Controller
         Auth::logout();
         return redirect('login');
     }
+
+    public function productReview(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $product->comment()->create([
+            'user_id' => Auth::id(),
+            'body' => $request->review
+        ]);
+        $product->save();
+
+        return redirect()->back();
+    }
 }

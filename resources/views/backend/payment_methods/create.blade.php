@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{old('name')}}">
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('name') }}
@@ -43,9 +43,9 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Status</label>
                                     <select class="form-control" name="status" id="">
-                                        <option value="" selected>Select Status</option>
-                                        <option value="0">Deactive</option>
-                                        <option value="1">Active</option>
+                                        <option value="">Select Status</option>
+                                        <option value="0" @if(old('status') == 0) selected @endif>Deactive</option>
+                                        <option value="1" @if(old('status') == 1) selected @endif>Active</option>
                                     </select>
                                     @if ($errors->has('status'))
                                         <div class="alert alert-danger">

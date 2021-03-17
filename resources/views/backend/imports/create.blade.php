@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{old('name')}}">
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('name') }}
@@ -44,7 +44,7 @@
                                     <select class="form-control" name="vendor_id" id="">
                                         <option value="">Select Vendor</option>
                                         @foreach($vendors as $vendor)
-                                            <option value="{{$vendor->id}}">{{$vendor->name}}</option>
+                                            <option value="{{$vendor->id}}" @if(old('vendor_id') == $vendor->id) selected @endif>{{$vendor->name}}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('vendor_id'))
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Import Date</label>
-                                    <input type="date" name="import_date" class="form-control" id="exampleInputEmail1" >
+                                    <input type="date" name="import_date" class="form-control" id="exampleInputEmail1" value="{{old('import_date')}}">
                                     @if ($errors->has('import_date'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('import_date') }}

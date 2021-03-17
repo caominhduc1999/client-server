@@ -2,22 +2,6 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Blank Page</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Blank Page</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
 
         <!-- Main content -->
         <section class="content">
@@ -25,17 +9,99 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Title</h3>
+                    <h3 class="card-title">Comments</h3>
 
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fa fa-times"></i></button>
+
                     </div>
                 </div>
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{session('success')}}
+                    </div>
+                @endif
                 <div class="card-body">
-                    Start creating your amazing application!
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">List</h3>
+
+                            <div class="card-tools">
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /.card-body -->
+                        <div class="card-body">
+                            <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="example1" class="table table-bordered table-striped dataTable"
+                                               role="grid" aria-describedby="example1_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="ID: activate to sort column descending"
+                                                    style="width: 5%;">ID
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Product: activate to sort column ascending"
+                                                    style="width: 20%;">Product
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Name: activate to sort column ascending"
+                                                    style="width: 40%;">Body
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Reviewer: activate to sort column ascending"
+                                                    style="width: 20%;">Reviewer
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Reviewer: activate to sort column ascending"
+                                                    style="width: 20%;">Time
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Action: activate to sort column ascending"
+                                                    style="width: 20%;">Action
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            @foreach($comments as $key => $comment)
+                                                <tr role="row">
+                                                    <td>{{$key + 1}}</td>
+                                                    <td>{{ ($comment->commentable_type)::find($comment->commentable_id)->name }}</td>
+                                                    <td>{{\Illuminate\Support\Str::limit($comment->body, 50)}}</td>
+                                                    <td>{{\App\Models\User::find($comment->user_id)->name}}</td>
+                                                    <td>{{$comment->created_at}}</td>
+                                                    <td style="display: flex">
+                                                        <a href="{{route('comments.show', $comment->id)}}">
+                                                            <button class="btn btn-outline-primary">Show</button>
+                                                        </a>
+                                                        <form action="{{ route('comments.destroy',  $comment->id) }}"
+                                                              method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-outline-danger"
+                                                                    onclick="return confirm('Xác nhận xóa ?')">Delete
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                    </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

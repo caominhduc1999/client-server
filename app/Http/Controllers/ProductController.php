@@ -47,14 +47,19 @@ class ProductController extends Controller
             ]);
 
         $product = Product::create($request->all());
-        foreach($request->image as $file) {
-            $path = $file->store('product_images');
-            $product->image()->create(['url' => $path]);
+        if ($request->image) {
+            foreach($request->image as $file) {
+                $path = $file->store('product_images');
+                $product->image()->create(['url' => $path]);
+            }
         }
 
-        foreach ($request->tags as $tag_id) {
-            $product->tags()->attach(intval($tag_id));
+        if ($request->tags) {
+            foreach ($request->tags as $tag_id) {
+                $product->tags()->attach(intval($tag_id));
+            }
         }
+
         $product->save();
         return redirect()->back()->with('success', 'Thêm thành công !');
     }

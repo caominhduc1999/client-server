@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -51,8 +52,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
-            'email' => 'required|unique:users,email,'.$user->email.'',
-            'phone' => 'required|unique:users,phone,'.$user->phone.'',
+            'email' => 'required|unique:users,email,'.$user->id.'',
+            'phone' => 'required|unique:users,phone,'.$user->id.'',
         ], [
             'email.required' => 'Vui lòng nhập email'
         ]);
@@ -69,5 +70,30 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')->with('success', 'Xóa thành công !');
+    }
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+        return view('backend.profile', compact('user'));
+    }
+
+    public function postProfile(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.Auth::id().'',
+            'phone' => 'required|unique:users,phone,'.Auth::id().'',
+        ], [
+            'name.required' => 'Vui lòng nhập tên user'
+        ]);
+
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Cập nhật thành công !');
     }
 }

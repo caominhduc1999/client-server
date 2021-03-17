@@ -35,7 +35,7 @@
                                     <select class="form-control" name="import_id" id="">
                                         <option value="">Select Import</option>
                                         @foreach($imports as $import)
-                                            <option value="{{$import->id}}">{{$import->name}}</option>
+                                            <option value="{{$import->id}}" @if(old('import_id') == $import->id) selected @endif>{{$import->name}}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('import_id'))
@@ -49,7 +49,7 @@
                                     <select class="form-control" name="product_id" id="">
                                         <option value="">Select Product</option>
                                         @foreach($products as $product)
-                                            <option value="{{$product->id}}">{{$product->name}}</option>
+                                            <option value="{{$product->id}}" @if(old('product_id') == $product->id) selected @endif>{{$product->name}}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('product_id'))
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Quantity</label>
-                                    <input type="number" min="0" name="quantity" class="form-control" id="exampleInputEmail1" >
+                                    <input type="number" min="0" name="quantity" class="form-control" id="exampleInputEmail1" value="{{old('quantity')}}">
                                     @if ($errors->has('quantity'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('quantity') }}

@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{old('name')}}">
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('name') }}
@@ -46,7 +46,7 @@
                                     <select class="form-control" name="category_id" id="">
                                         <option value="">Select Category</option>
                                         @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <option value="{{$category->id}}"  @if(old('category_id') == $category->id) selected @endif>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('category_id'))
@@ -62,7 +62,7 @@
                                     <select class="form-control" name="vendor_id" id="">
                                         <option value="">Select Vendor</option>
                                         @foreach($vendors as $vendor)
-                                            <option value="{{$vendor->id}}">{{$vendor->name}}</option>
+                                            <option value="{{$vendor->id}}" @if(old('vendor_id') == $vendor->id) selected @endif>{{$vendor->name}}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('vendor_id'))
@@ -75,7 +75,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Price</label>
-                                    <input type="number" name="price" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
+                                    <input type="number" name="price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" value="{{old('price')}}">
                                     @if ($errors->has('price'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('price') }}
@@ -86,7 +86,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Sale Price</label>
-                                    <input type="number" name="sale_price" class="form-control" id="exampleInputEmail1" placeholder="Enter sale price">
+                                    <input type="number" name="sale_price" class="form-control" id="exampleInputEmail1" placeholder="Enter sale price" value="{{old('sale_price')}}">
                                     @if ($errors->has('sale_price'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('sale_price') }}
@@ -108,7 +108,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Inventory Quantity</label>
-                                    <input type="number" name="inventory_quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter Inventory Quantity">
+                                    <input type="number" name="inventory_quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter Inventory Quantity" value="{{old('inventory_quantity')}}">
                                     @if ($errors->has('inventory_quantity'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('inventory_quantity') }}
@@ -143,8 +143,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Hot</label>
                                     <select class="form-control" name="is_hot" id="">
-                                        <option value="0" selected>Deactive</option>
-                                        <option value="1">Active</option>
+                                        <option value="0" @if(old('is_hot') == 0) selected @endif>Deactive</option>
+                                        <option value="1" @if(old('is_hot') == 1) selected @endif>Active</option>
                                     </select>
                                     @if ($errors->has('is_hot'))
                                         <div class="alert alert-danger">
@@ -157,8 +157,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Feature</label>
                                     <select class="form-control" name="is_feature" id="">
-                                        <option value="0" selected>Deactive</option>
-                                        <option value="1">Active</option>
+                                        <option value="0" @if(old('is_hot') == 0) selected @endif>Deactive</option>
+                                        <option value="1" @if(old('is_hot') == 1) selected @endif>Active</option>
                                     </select>
                                     @if ($errors->has('is_feature'))
                                         <div class="alert alert-danger">
