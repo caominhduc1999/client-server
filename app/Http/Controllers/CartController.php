@@ -10,6 +10,7 @@ class CartController extends Controller
 {
     public function addItem(Request $request)
     {
+
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $product = Product::find($request->productId);
 

@@ -34,9 +34,15 @@
                                     </thead>
                                     <tbody>
                                     @foreach($orders as $order)
-                                        <tr class="cart_item">
+                                        <tr class="cart_item" style="background-color: darkgrey">
                                             <td class="product-thumbnail">
                                                 Order number : {{$order->id}}
+                                            </td>
+                                            <td class="product-price">
+                                                Discount: {{$order->coupon_id != 0 ? $order->coupon->code : 'No applied'}}
+                                            </td>
+                                            <td class="product-price">
+                                                Total: ${{number_format($order->total, 2)}}
                                             </td>
                                             <td class="product-name">
                                                 <form action="{{route('re_order')}}" method="post">
@@ -46,13 +52,10 @@
                                                 <button class="btn btn-primary">Re-Order</button>
                                                 </form>
                                             </td>
-                                            <td class="product-price">
-                                            </td>
-                                            <td class="product-price">
-                                            </td>
+
+
                                         </tr>
                                         @foreach($order->order_details as $orderItem)
-
                                             <tr class="cart_item">
                                                 <td class="product-thumbnail">
                                                     <a href="{{route('single_product', $orderItem->product->id)}}">
@@ -64,14 +67,14 @@
                                                     </a>
                                                 </td>
                                                 <td class="product-name">
-                                                    <a href="{{route('single_product', $orderItem->id)}}">{{$orderItem->name}}</a>
+                                                    <a href="{{route('single_product', $orderItem->product->id)}}">{{$orderItem->name}}</a>
                                                 </td>
 
                                                 <td class="product-price">
                                                     <span class="amount">{{$orderItem->quantity}}</span>
                                                 </td>
                                                 <td class="product-price">
-                                                    <span class="amount">£{{number_format($orderItem->price, 2)}}</span>
+                                                    <span class="amount">£{{number_format($orderItem->price * $orderItem->quantity, 2)}}</span>
                                                 </td>
                                             </tr>
                                         @endforeach

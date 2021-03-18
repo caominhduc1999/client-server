@@ -36,6 +36,29 @@
 
 
                         <div class="card-body">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fa fa-text-width"></i>
+                                        Customer Infomation
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <dl>
+                                        <dt>Name</dt>
+                                        <dd>{{$order->name}}</dd>
+                                        <dt>Phone</dt>
+                                        <dd>{{$order->phone}}</dd>
+                                        <dt>Email</dt>
+                                        <dd>{{$order->email}}</dd>
+                                        <dt>Address</dt>
+                                        <dd>{{$order->address}}</dd>
+                                    </dl>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <hr>
                             <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
 
                                 <div class="row">
@@ -51,20 +74,15 @@
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Image: activate to sort column ascending"
-                                                    style="width: 70%;">Image
+                                                    style="width: 30%;">Image
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Product: activate to sort column ascending"
-                                                    style="width: 70%;">Product
+                                                    style="width: 50%;">Product
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Quantity: activate to sort column ascending"
                                                     style="width: 70%;">Quantity
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Action: activate to sort column ascending"
-                                                    style="width: 20%;">Action
                                                 </th>
                                             </tr>
                                             </thead>
@@ -78,14 +96,6 @@
                                                     </td>
                                                     <td>{{\App\Models\Product::find($orderDetail->product_id)->name}}</td>
                                                     <td>{{$orderDetail->quantity}}</td>
-                                                    <td style="display: flex">
-                                                        <a href="{{route('order_details.edit', $orderDetail->id)}}"><button class="btn btn-outline-warning">Edit</button></a>
-                                                        <form action="{{ route('order_details.destroy',  $orderDetail->id) }}" method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button class="btn btn-outline-danger" onclick="return confirm('Xác nhận xóa ?')">Delete</button>
-                                                        </form>
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

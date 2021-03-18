@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->float('total')->nullable();
             $table->integer('status')->nullable();
             $table->string('notes')->nullable();
+            $table->string('name')->nullable();
             $table->string('phone');
             $table->string('email')->nullable();
             $table->string('address');

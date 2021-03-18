@@ -84,7 +84,7 @@
                                             @foreach($orders as $key => $order)
                                                 <tr>
                                                     <td>{{$key + 1}}</td>
-                                                    <td>${{$order->total}}</td>
+                                                    <td>${{number_format($order->total, 2)}}</td>
                                                     <td>{{$order->phone}}</td>
                                                     <td>{{$order->email}}</td>
                                                     <td>{{$order->payment_method->name}}</td>

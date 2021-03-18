@@ -20,6 +20,11 @@
                 <x-sidebar></x-sidebar>
 
                 <div class="col-md-8">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{session('success')}}
+                        </div>
+                    @endif
                     @foreach($products as $product)
                         <div class="col-md-4 col-sm-6">
                         <div class="single-shop-product">
@@ -39,6 +44,7 @@
                                 <form action="{{route('cart.add')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="productId" value="{{$product->id}}">
+                                    <input type="hidden" name="quantity" value="1">
                                     <button type="submit" style="width: 100%">
                                         Add to cart
                                     </button>

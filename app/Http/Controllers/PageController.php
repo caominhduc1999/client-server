@@ -101,6 +101,7 @@ class PageController extends Controller
         if ($request->phone) {
             session()->put('notes', $request->notes);
             session()->put('phone', $request->phone);
+            session()->put('name', $request->name);
             session()->put('email', $request->email);
             session()->put('address', $request->address);
             session()->put('payment_method', $request->payment_method);
@@ -114,11 +115,12 @@ class PageController extends Controller
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $order = new Order();
         $order->user_id = Auth::check() ? Auth::id() : 0;
-        $order->coupon_id = session()->has('coupon') ? session()->get('coupon')->first()->id : 0;
-        $order->total = session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')->first()->discount) / 100 : \Cart::session($userId)->getTotal();
+        $order->coupon_id = session()->has('coupon') ? session()->get('coupon')->id : 0;
+        $order->total = session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')->discount) / 100 : \Cart::session($userId)->getTotal();
         $order->status = 0;
         $order->notes = $request->notes ? $request->notes : session()->get('notes');
         $order->phone = $request->phone ? $request->phone : session()->get('phone');
+        $order->name = $request->name ? $request->name : session()->get('name');
         $order->email = $request->email ? $request->email : session()->get('email');
         $order->address = $request->address ? $request->address : session()->get('address');
         $order->payment_method_id = $request->payment_method ? $request->payment_method : session()->get('payment_method');
@@ -142,7 +144,7 @@ class PageController extends Controller
         if ($request->payment_method == 2) {
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             Stripe\Charge::create ([
-                "amount" => (session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')->first()->discount) / 100 : \Cart::session($userId)->getTotal()) * 100,
+                "amount" => (session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')->discount) / 100 : \Cart::session($userId)->getTotal()) * 100,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => "Purchase for instrumental music !"
@@ -152,6 +154,7 @@ class PageController extends Controller
         \Cart::session($userId)->clear();
         session()->forget('notes');
         session()->forget('phone');
+        session()->forget('name');
         session()->forget('email');
         session()->forget('address');
         session()->forget('payment_method');
