@@ -82,7 +82,7 @@
                                                 <tr>
                                                     <td>{{$key + 1}}</td>
                                                     <td>{{$product->name}}</td>
-                                                    <td>{{number_format($product->price)}}</td>
+                                                    <td>${{number_format($product->price, 2)}}</td>
                                                     <td>{{$product->inventory_quantity}}</td>
                                                     <td>{{$product->category->name}}</td>
                                                     <td>{{$product->vendor->name}}</td>

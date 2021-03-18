@@ -20,6 +20,8 @@ class Product extends Model
         'notes',
         'category_id',
         'vendor_id',
+        'is_hot',
+        'is_feature'
     ];
 
     protected $morphClass = 'product';
