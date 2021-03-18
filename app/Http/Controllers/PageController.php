@@ -203,11 +203,6 @@ class PageController extends Controller
             [
                 'email' =>  'email|required',
                 'password'       =>  'required|min:6|max:32',
-            ],
-            [
-                'email.required'     =>  'Mời nhập email',
-                'email.email' =>  'Email không đúng định dạng',
-                'password.required'          =>  'Mời nhập mật khẩu',
             ]);
 
         if (Auth::attempt(['email'=>$request->email, 'password'=>($request->password)], $request->remember_me))
@@ -242,8 +237,6 @@ class PageController extends Controller
             'password' => 'required',
             'password_confirm' => 'required|same:password',
 
-        ], [
-            'name.required' => 'Vui lòng nhập tên user'
         ]);
 
         $user = User::create($request->all());

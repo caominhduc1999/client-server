@@ -29,7 +29,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         Order::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -53,7 +53,7 @@ class OrderController extends Controller
     {
         $order->update($request->all());
         $order->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
     public function destroy($id)
@@ -68,6 +68,6 @@ class OrderController extends Controller
 
         $order->delete();
 
-        return redirect()->route('orders.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('orders.index')->with('success', 'Deleted Successfully !');
     }
 }

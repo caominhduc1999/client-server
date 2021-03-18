@@ -18,6 +18,7 @@ class CreateImportDetailsTable extends Migration
             $table->integer('product_id');
             $table->bigInteger('quantity')->nullable();
             $table->integer('import_id');
+            $table->double('import_price')->nullable();
             $table->text('notes');
             $table->timestamps();
         });

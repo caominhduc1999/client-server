@@ -24,12 +24,10 @@ class PaymentMethodController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:payment_methods,name'
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         PaymentMethod::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -50,13 +48,11 @@ class PaymentMethodController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:payment_methods,name,'.$paymentMethod->id.''
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         $paymentMethod->update($request->all());
         $paymentMethod->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -65,6 +61,6 @@ class PaymentMethodController extends Controller
         $paymentMethod = PaymentMethod::find($id);
         $paymentMethod->delete();
 
-        return redirect()->route('payment_methods.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('payment_methods.index')->with('success', 'Deleted Successfully !');
     }
 }

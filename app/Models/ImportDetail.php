@@ -12,6 +12,7 @@ class ImportDetail extends Model
     protected $fillable = [
         'product_id',
         'quantity',
+        'import_price',
         'import_id',
         'notes'
     ];

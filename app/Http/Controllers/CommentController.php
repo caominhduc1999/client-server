@@ -51,6 +51,6 @@ class CommentController extends Controller
         $comment = Comment::find($id);
         $comment->delete();
 
-        return redirect()->route('comments.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('comments.index')->with('success', 'Deleted Successfully !');
     }
 }

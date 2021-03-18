@@ -22,7 +22,11 @@
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
-
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{session('success')}}
+                                </div>
+                            @endif
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                     <tr>
@@ -42,7 +46,7 @@
                                         </td>
 
                                         <td class="product-thumbnail">
-                                            <a href="single-product.html">
+                                            <a href="">
                                                 @foreach($item->associatedModel as $key => $image)
                                                     @if($key == 0)
                                                         <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{'storage/'.$image->url}}">

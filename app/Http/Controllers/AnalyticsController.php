@@ -80,7 +80,7 @@ class AnalyticsController extends Controller
             ->whereDate('import_details.created_at', '<=', $to_date)
             ->select('products.id','products.name','import_details.product_id',
                 DB::raw('SUM(import_details.quantity) as total_quantity'),
-                DB::raw('SUM(products.price * import_details.quantity) as total_price'))
+                DB::raw('SUM(import_details.import_price * import_details.quantity) as total_price'))
             ->groupBy('products.id','import_details.product_id','products.name')
             ->orderBy('total_quantity','desc')
             ->get();

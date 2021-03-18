@@ -26,12 +26,10 @@ class CouponController extends Controller
             'code' => 'required|unique:coupons,code',
             'start_date' => 'required',
             'end_date' => 'required',
-        ], [
-            'code.required' => 'Vui lòng nhập code'
         ]);
 
         Coupon::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -54,13 +52,11 @@ class CouponController extends Controller
             'code' => 'required|unique:coupons,code,'.$coupon->id.'',
             'start_date' => 'required',
             'end_date' => 'required',
-        ], [
-            'code.required' => 'Vui lòng nhập code'
         ]);
 
         $coupon->update($request->all());
         $coupon->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -69,6 +65,6 @@ class CouponController extends Controller
         $coupon = Coupon::find($id);
         $coupon->delete();
 
-        return redirect()->route('coupons.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('coupons.index')->with('success', 'Deleted Successfully !');
     }
 }

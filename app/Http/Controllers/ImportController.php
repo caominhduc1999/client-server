@@ -30,12 +30,10 @@ class ImportController extends Controller
             'name' => 'required|unique:imports,name',
             'vendor_id' => 'required',
             'import_date' => 'required'
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         Import::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -59,13 +57,11 @@ class ImportController extends Controller
             'name' => 'required|unique:imports,name,'.$import->id.'',
             'vendor_id' => 'required',
             'import_date' => 'required'
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         $import->update($request->all());
         $import->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -74,6 +70,6 @@ class ImportController extends Controller
         $import = Import::find($id);
         $import->delete();
 
-        return redirect()->route('imports.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('imports.index')->with('success', 'Deleted Successfully !');
     }
 }

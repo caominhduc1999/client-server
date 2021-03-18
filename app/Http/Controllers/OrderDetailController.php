@@ -45,7 +45,7 @@ class OrderDetailController extends Controller
     {
         $orderDetail->update($request->all());
         $orderDetail->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -54,6 +54,6 @@ class OrderDetailController extends Controller
         $orderDetail = OrderDetail::find($id);
         $orderDetail->delete();
 
-        return redirect()->route('orders.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('orders.index')->with('success', 'Deleted Successfully !');
     }
 }

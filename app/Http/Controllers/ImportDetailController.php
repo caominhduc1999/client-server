@@ -32,8 +32,6 @@ class ImportDetailController extends Controller
             'import_id' => 'required',
             'product_id' => 'required',
             'quantity' => 'required|min:0'
-        ], [
-            'import_id.required' => 'Vui lòng nhập tên nhà cung cấp'
         ]);
 
         ImportDetail::create($request->all());
@@ -41,7 +39,7 @@ class ImportDetailController extends Controller
         $product->inventory_quantity += $request->quantity;
         $product->save();
 
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -66,8 +64,6 @@ class ImportDetailController extends Controller
             'import_id' => 'required',
             'product_id' => 'required',
             'quantity' => 'required|min:0'
-        ], [
-            'import_id.required' => 'Vui lòng nhập tên nhà cung cấp'
         ]);
 
         $product = Product::find($request->product_id);
@@ -76,7 +72,7 @@ class ImportDetailController extends Controller
 
         $importDetail->update($request->all());
         $importDetail->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
     public function destroy($id)
@@ -84,6 +80,6 @@ class ImportDetailController extends Controller
         $importDetail = ImportDetail::find($id);
         $importDetail->delete();
 
-        return redirect()->route('import_details.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('import_details.index')->with('success', 'Deleted Successfully !');
     }
 }

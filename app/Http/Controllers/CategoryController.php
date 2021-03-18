@@ -25,12 +25,10 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories,name'
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         Category::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -51,13 +49,11 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories,name,'.$category->id.''
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         $category->update($request->all());
         $category->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -66,6 +62,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('categories.index')->with('success', 'Deleted Successfully !');
     }
 }

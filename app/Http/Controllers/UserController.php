@@ -34,12 +34,10 @@ class UserController extends Controller
             'password' => 'required',
             'password_confirm' => 'required|same:password',
             'user_type' => 'required'
-        ], [
-            'name.required' => 'Vui lòng nhập tên user'
         ]);
 
         User::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
     public function edit($id)
@@ -54,13 +52,11 @@ class UserController extends Controller
         $this->validate($request, [
             'email' => 'required|unique:users,email,'.$user->id.'',
             'phone' => 'required|unique:users,phone,'.$user->id.'',
-        ], [
-            'email.required' => 'Vui lòng nhập email'
         ]);
 
         $user->update($request->all());
         $user->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -69,7 +65,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('users.index')->with('success', 'Deleted Successfully !');
     }
 
     public function getProfile()
@@ -84,8 +80,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.Auth::id().'',
             'phone' => 'required|unique:users,phone,'.Auth::id().'',
-        ], [
-            'name.required' => 'Vui lòng nhập tên user'
         ]);
 
         $user = Auth::user();
@@ -94,6 +88,6 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->save();
 
-        return redirect()->back()->with('success', 'Cập nhật thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 }

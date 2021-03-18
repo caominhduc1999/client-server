@@ -59,7 +59,7 @@
 
 
                                 .gallery img {
-                                    width: 30%;
+                                    width: 25%;
                                     height: 80px;
                                 }
 
@@ -113,6 +113,11 @@
                                         @if ($errors->has('quantity'))
                                             <div class="alert alert-danger">
                                                 {{ $errors->first('quantity') }}
+                                            </div>
+                                        @endif
+                                        @if(session('success'))
+                                            <div class="alert alert-success">
+                                                {{session('success')}}
                                             </div>
                                         @endif
                                     @else

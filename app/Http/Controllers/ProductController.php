@@ -41,9 +41,6 @@ class ProductController extends Controller
                 'notes' => 'nullable',
                 'category_id' => 'required',
                 'vendor_id' => 'required'
-            ],
-            [
-                'name.required' => 'Vui lòng nhập tên'
             ]);
 
         $product = Product::create($request->all());
@@ -61,7 +58,7 @@ class ProductController extends Controller
         }
 
         $product->save();
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -94,9 +91,6 @@ class ProductController extends Controller
                 'notes' => 'nullable',
                 'category_id' => 'required',
                 'vendor_id' => 'required'
-            ],
-            [
-                'name.required' => 'Vui lòng nhập tên'
             ]);
 
 
@@ -121,7 +115,7 @@ class ProductController extends Controller
         }
 
         $product->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -131,6 +125,6 @@ class ProductController extends Controller
         $product->tags()->detach();
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('products.index')->with('success', 'Deleted Successfully !');
     }
 }

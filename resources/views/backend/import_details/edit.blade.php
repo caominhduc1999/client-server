@@ -68,6 +68,15 @@
                                         </div>
                                     @endif
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Import Price</label>
+                                    <input type="number" min="0" name="import_price" class="form-control" id="exampleInputEmail1" value="{{$importDetail->import_price}}">
+                                    @if ($errors->has('import_price'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('import_price') }}
+                                        </div>
+                                    @endif
+                                </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Notes</label>

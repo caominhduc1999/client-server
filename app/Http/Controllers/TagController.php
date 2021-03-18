@@ -25,12 +25,10 @@ class TagController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:tags,name'
-        ], [
-            'name.required' => 'Vui lòng nhập tên tag'
         ]);
 
         Tag::create($request->all());
-        return redirect()->back()->with('success', 'Thêm thành công !');
+        return redirect()->back()->with('success', 'Added Successfully !');
     }
 
 
@@ -51,13 +49,11 @@ class TagController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:tags,name,'.$tag->id.''
-        ], [
-            'name.required' => 'Vui lòng nhập tên danh mục'
         ]);
 
         $tag->update($request->all());
         $tag->save();
-        return redirect()->back()->with('success', 'Sửa thành công !');
+        return redirect()->back()->with('success', 'Updated Successfully !');
     }
 
 
@@ -67,6 +63,6 @@ class TagController extends Controller
         $tag->products()->detach();
         $tag->delete();
 
-        return redirect()->route('tags.index')->with('success', 'Xóa thành công !');
+        return redirect()->route('tags.index')->with('success', 'Deleted Successfully !');
     }
 }

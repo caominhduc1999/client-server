@@ -42,6 +42,7 @@
                                     <th>Import</th>
                                     <th>Product</th>
                                     <th>Quantity</th>
+                                    <th>Import Price</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach($importDetails as $key => $importDetail)
@@ -50,6 +51,7 @@
                                         <td>{{$importDetail->import->name}}</td>
                                         <td>{{$importDetail->product->name}}</td>
                                         <td>{{$importDetail->quantity}}</td>
+                                        <td>${{number_format($importDetail->import_price, 2)}}</td>
                                         <td style="display: flex">
                                             <a href="{{route('import_details.edit', $importDetail->id)}}"><button class="btn btn-outline-warning">Edit</button></a>
                                             <form action="{{ route('import_details.destroy',  $importDetail->id) }}" method="POST">
