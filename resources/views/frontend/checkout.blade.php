@@ -124,14 +124,14 @@
                                             <tr class="shipping">
                                                 <th>Discount</th>
                                                 <td>
-                                                    <span class="amount">{{session()->has('coupon') ? session()->get('coupon')[0]->discount : 0}}%</span>
+                                                    <span class="amount">{{session()->has('coupon') ? session()->get('coupon')->first()->discount : 0}}%</span>
                                                 </td>
                                             </tr>
 
 
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£{{number_format($subTotal * (100 - (session()->has('coupon') ? session()->get('coupon')[0]->discount : 0)) / 100, 2)}}</span></strong> </td>
+                                            <td><strong><span class="amount">£{{number_format($subTotal * (100 - (session()->has('coupon') ? session()->get('coupon')->first()->discount : 0)) / 100, 2)}}</span></strong> </td>
                                         </tr>
 
                                         </tfoot>
