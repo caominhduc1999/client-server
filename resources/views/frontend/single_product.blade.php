@@ -46,10 +46,10 @@
                             </div>
                             <style>
                                 gallery {
-                                    margin: 5px;
+                                    margin-top: 5px;
                                     border: 1px solid #ccc;
                                     float: left;
-                                    width: 180px;
+                                    width: 100px;
                                 }
 
                                 .gallery img:hover {
@@ -59,7 +59,7 @@
 
 
                                 .gallery img {
-                                    width: 30%;
+                                    width: 25%;
                                     height: 80px;
                                 }
 
