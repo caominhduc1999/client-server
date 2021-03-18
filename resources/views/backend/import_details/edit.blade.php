@@ -27,8 +27,9 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form" method="post" action="{{ route('import_details.edit', $importDetail->id) }}">
-                            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                        <form role="form" method="post" action="{{ route('import_details.update', $importDetail->id) }}">
+                            @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Import</label>

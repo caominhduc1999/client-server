@@ -81,8 +81,9 @@ class PageController extends Controller
 
     public function applyCoupon(Request $request)
     {
-        $coupon = Coupon::where([['code', $request->coupon_code],['status', 1]])->get();
-        if (count($coupon)) {
+        $coupon = Coupon::where([['code', $request->coupon_code],['status', 1]])->first();
+        $currentDate = date('Y-m-d');
+        if ($coupon && ($currentDate >= $coupon->start_date) && ($currentDate <= $coupon->end_date)) {
             session()->put('coupon', $coupon);
             return redirect()->back()->with('notify_success', 'Applied Code');
         } else {
@@ -132,6 +133,10 @@ class PageController extends Controller
             $orderDetail->price = $item->price;
             $orderDetail->name = $item->name;
             $orderDetail->save();
+
+            $product = Product::find($item->id);
+            $product->inventory_quantity -= $item->quantity;
+            $product->save();
         }
 
         if ($request->payment_method == 2) {
@@ -210,13 +215,16 @@ class PageController extends Controller
             if (Auth::user()->user_type == 2) //customer
             {
                 return redirect('index');
-            } else {
-                return redirect('admin');
+            }
+
+            if (Auth::user()->user_type == 1 || Auth::user()->user_type == 3)
+            {
+                return redirect('/admin');
             }
         }
         else
         {
-            return redirect()->back()->with('notify','Email hoặc Password sai. Mời thử lại !!');
+            return redirect()->back()->with('notify','Invalid Email or Password !!');
         }
     }
 
@@ -242,13 +250,13 @@ class PageController extends Controller
         $user->user_type = 2;
         $user->save();
 
-        Auth::loginUsingId($user->id);
+        Auth::guard('web')->loginUsingId($user->id);
         return redirect('index');
     }
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
         return redirect('login');
     }
 

@@ -97,15 +97,28 @@
                                             <ins>${{number_format($product->price, 2)}}</ins>
                                         @endif
                                     </div>
-
+                                    <div class="product-inner-price">
+                                        Remain Quantity: {{$product->inventory_quantity}}
+                                    </div>
+                                    @if($product->inventory_quantity != 0)
                                     <form action="{{route('cart.add')}}" method="post" class="cart">
                                         @csrf
                                         <input type="hidden" name="productId" value="{{$product->id}}">
                                         <div class="quantity">
                                             <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
                                         </div>
+
                                         <button class="add_to_cart_button" type="submit">Add to cart</button>
                                     </form>
+                                        @if ($errors->has('quantity'))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first('quantity') }}
+                                            </div>
+                                        @endif
+                                    @else
+                                        <button class="add_to_cart_button" type="button">Out of Stock</button>
+                                        <hr>
+                                    @endif
 
                                     <div class="product-inner-category">
                                         <p>Category: <a href="{{route('shop', $product->category->id)}}">{{$product->category->name}}</a>.

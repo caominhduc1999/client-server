@@ -9,7 +9,7 @@ class PaymentMethodController extends Controller
 {
     public function index()
     {
-        $paymentMethods = PaymentMethod::all();
+        $paymentMethods = PaymentMethod::orderBy('created_at', 'desc')->get();
         return view('backend.payment_methods.index', compact('paymentMethods'));
     }
 

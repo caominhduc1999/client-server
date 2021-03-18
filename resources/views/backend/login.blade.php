@@ -54,6 +54,11 @@
                             <input type="checkbox" name="remember_me" id="remember-me" class="agree-term" />
                             <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
                         </div>
+                        @if(session('notify'))
+                            <div class="alert alert-danger">
+                                {{session('notify')}}
+                            </div>
+                        @endif
                         <div class="form-group form-button">
                             <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                         </div>

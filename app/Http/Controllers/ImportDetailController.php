@@ -13,7 +13,7 @@ class ImportDetailController extends Controller
 
     public function index()
     {
-        $importDetails = ImportDetail::all();
+        $importDetails = ImportDetail::orderBy('created_at', 'desc')->get();
         return view('backend.import_details.index', compact('importDetails'));
     }
 
@@ -37,6 +37,10 @@ class ImportDetailController extends Controller
         ]);
 
         ImportDetail::create($request->all());
+        $product = Product::find($request->product_id);
+        $product->inventory_quantity += $request->quantity;
+        $product->save();
+
         return redirect()->back()->with('success', 'Thêm thành công !');
     }
 
@@ -65,6 +69,10 @@ class ImportDetailController extends Controller
         ], [
             'import_id.required' => 'Vui lòng nhập tên nhà cung cấp'
         ]);
+
+        $product = Product::find($request->product_id);
+        $product->inventory_quantity = $product->inventory_quantity - $importDetail->quantity + $request->quantity;
+        $product->save();
 
         $importDetail->update($request->all());
         $importDetail->save();

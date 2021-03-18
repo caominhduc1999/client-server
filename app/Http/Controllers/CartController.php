@@ -13,6 +13,10 @@ class CartController extends Controller
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $product = Product::find($request->productId);
 
+        $this->validate($request, [
+           'quantity' => 'required|lte:'.$product->inventory_quantity
+        ]);
+
         \Cart::session($userId)->add(array(
             'id' => $product->id,
             'name' => $product->name,

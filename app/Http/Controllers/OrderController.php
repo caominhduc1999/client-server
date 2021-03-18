@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentMethod;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -58,6 +59,13 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $order = Order::find($id);
+
+        foreach($order->order_details as $orderDetail) {
+            $product = Product::find($orderDetail->product_id);
+            $product->inventory_quantity += $orderDetail->quantity;
+            $product->save();
+        }
+
         $order->delete();
 
         return redirect()->route('orders.index')->with('success', 'Xóa thành công !');
