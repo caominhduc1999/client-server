@@ -114,8 +114,8 @@ class PageController extends Controller
         $userId = Auth::check() ? Auth::id() : session()->getid();
         $order = new Order();
         $order->user_id = Auth::check() ? Auth::id() : 0;
-        $order->coupon_id = session()->has('coupon') ? session()->get('coupon')[0]->id : 0;
-        $order->total = session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')[0]->discount) / 100 : \Cart::session($userId)->getTotal();
+        $order->coupon_id = session()->has('coupon') ? session()->get('coupon')->first()->id : 0;
+        $order->total = session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')->first()->discount) / 100 : \Cart::session($userId)->getTotal();
         $order->status = 0;
         $order->notes = $request->notes ? $request->notes : session()->get('notes');
         $order->phone = $request->phone ? $request->phone : session()->get('phone');
@@ -142,7 +142,7 @@ class PageController extends Controller
         if ($request->payment_method == 2) {
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             Stripe\Charge::create ([
-                "amount" => \Cart::session($userId)->getTotal() * 100,
+                "amount" => (session()->has('coupon') ? \Cart::session($userId)->getTotal() * (100 - session()->get('coupon')->first()->discount) / 100 : \Cart::session($userId)->getTotal()) * 100,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => "Purchase for instrumental music !"
