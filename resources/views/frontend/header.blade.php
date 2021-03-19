@@ -4,7 +4,9 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+                        @if(\Illuminate\Support\Facades\Auth::check())
+                            <li><a href="{{route('wish_list')}}"><i class="fa fa-heart"></i> Wishlist</a></li>
+                        @endif
                         <li><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> My Cart</a></li>
                         <li><a href="{{route('checkout')}}"><i class="fa fa-check-circle"></i> Checkout</a></li>
                         @if(\Illuminate\Support\Facades\Auth::check())
@@ -64,6 +66,7 @@
                     <li><a href="{{route('cart')}}">Cart</a></li>
                     <li><a href="{{route('checkout')}}">Checkout</a></li>
                     <li><a href="{{route('order_history')}}">Order History</a></li>
+                    <li><a href="{{route('wish_list')}}">Wish List</a></li>
                 </ul>
             </div>
         </div>
