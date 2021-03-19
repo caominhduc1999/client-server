@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\WishList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -274,5 +275,34 @@ class PageController extends Controller
         $product->save();
 
         return redirect()->back();
+    }
+
+    public function wishList()
+    {
+        $user = Auth::user();
+
+        $favorites = $user->wish_lists()->with('product')->orderBy('created_at', 'desc')->get();
+        return view('frontend.wish_list', compact('favorites'));
+    }
+
+    public function addWishList($id)
+    {
+        $checkWishList = WishList::where([['product_id', $id], ['user_id', Auth::id()]])->first();
+        if (!$checkWishList) {
+            $favourite = new WishList();
+            $favourite->user_id = Auth::id();
+            $favourite->product_id = $id;
+            $favourite->save();
+        }
+
+        return redirect()->back()->with('success', 'Added to Wish List !');
+    }
+
+    public function removeWishList($id)
+    {
+        $favourite = WishList::find($id);
+        $favourite->delete();
+
+        return redirect()->back()->with('success', 'Removed from Wish List !');
     }
 }

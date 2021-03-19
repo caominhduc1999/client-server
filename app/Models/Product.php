@@ -61,4 +61,8 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetail::class, 'product_id', 'id');
     }
+
+    public function wish_lists(){
+        return $this->hasMany(Wishlist::class);
+    }
 }
