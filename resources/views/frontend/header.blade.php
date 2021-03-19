@@ -8,7 +8,7 @@
                         <li><a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> My Cart</a></li>
                         <li><a href="{{route('checkout')}}"><i class="fa fa-check-circle"></i> Checkout</a></li>
                         @if(\Illuminate\Support\Facades\Auth::check())
-                            <li><a href="#"><i class="fa fa-user"></i> {{\Auth::user()->name}}</a></li>
+                            <li><a href="{{route('profile.client.get')}}"><i class="fa fa-user"></i> {{\Auth::user()->name}}</a></li>
                             <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
                         @else
                             <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a></li>

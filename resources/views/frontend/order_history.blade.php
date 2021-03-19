@@ -37,11 +37,15 @@
                                         <tr class="cart_item" style="background-color: darkgrey">
                                             <td class="product-thumbnail">
                                                 Order number : {{$order->id}}
+                                                <br>
+                                                ({{$order->payment_method_id == 1 ? 'COD' : 'Stripe'}} - {{$order->payment_status == 0 ? 'Unpaid' : 'Paid'}})
+                                            </td>
+                                            <td class="product-price">
+                                                Order Status: {{$order->getStatusName()}}
                                             </td>
                                             <td class="product-price">
                                                 Discount: {{$order->coupon_id != 0 ? $order->coupon->code : 'No applied'}}
-                                            </td>
-                                            <td class="product-price">
+                                                <br>
                                                 Total: ${{number_format($order->total, 2)}}
                                             </td>
                                             <td class="product-name">

@@ -20,7 +20,8 @@ class Order extends Model
         'email',
         'address',
         'payment_method_id',
-        'coupon_id'
+        'coupon_id',
+        'payment_status'
     ];
 
     public function order_details()

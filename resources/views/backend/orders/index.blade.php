@@ -47,31 +47,30 @@
                                                 <th class="sorting_asc" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="ID: activate to sort column descending"
-                                                    style="width: 10%;">ID
+                                                    style="width: 5%;">ID
                                                 </th>
 
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Total: activate to sort column ascending"
-                                                    style="width: 70%;">Total
+                                                    style="width: 10%;">Total
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Phone: activate to sort column ascending"
-                                                    style="width: 70%;">Phone
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Email: activate to sort column ascending"
-                                                    style="width: 70%;">Email
+                                                    style="width: 20%;">Name
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1"
                                                     aria-label="Payment Method: activate to sort column ascending"
-                                                    style="width: 20%;">Payment Method
+                                                    style="width: 10%;">Payment Method
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1" aria-label="Status: activate to sort column ascending"
-                                                    style="width: 70%;">Status
+                                                    style="width: 10%;">Status
                                                 </th>
-
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Payment Status: activate to sort column ascending"
+                                                    style="width: 5%;">Payment Status
+                                                </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                     colspan="1"
                                                     aria-label="Action: activate to sort column ascending"
@@ -85,10 +84,10 @@
                                                 <tr>
                                                     <td>{{$key + 1}}</td>
                                                     <td>${{number_format($order->total, 2)}}</td>
-                                                    <td>{{$order->phone}}</td>
-                                                    <td>{{$order->email}}</td>
+                                                    <td>{{$order->name}}</td>
                                                     <td>{{$order->payment_method->name}}</td>
                                                     <td>{{$order->getStatusName()}}</td>
+                                                    <td>{{$order->payment_status == 0 ? 'Unpaid' : 'Paid'}}</td>
                                                     <td style="display: flex">
                                                         <a href="{{route('orders.show', $order->id)}}"><button class="btn btn-outline-primary">Show</button></a>
                                                         <a href="{{route('orders.edit', $order->id)}}"><button class="btn btn-outline-warning">Edit</button></a>

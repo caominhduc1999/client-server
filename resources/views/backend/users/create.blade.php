@@ -58,6 +58,15 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <input type="text" name="address" class="form-control" id="exampleInputEmail1" placeholder="Enter address" value="{{old('address')}}">
+                                    @if ($errors->has('address'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('address') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Password</label>
                                     <input type="password" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter password">
                                     @if ($errors->has('password'))

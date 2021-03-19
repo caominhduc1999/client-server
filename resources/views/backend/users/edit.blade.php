@@ -59,6 +59,15 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <input type="text" name="address" class="form-control" id="exampleInputEmail1" placeholder="Enter address" value="{{$user->address}}">
+                                    @if ($errors->has('address'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('address') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Type</label>
                                     <select class="form-control" name="user_type" id="">
                                         <option value="1" @if($user->user_type == 1) selected @endif>Admin</option>

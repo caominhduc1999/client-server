@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [\App\Http\Controllers\PageController::class, 'index'])->name('index');
+Route::get('/profile', [\App\Http\Controllers\PageController::class, 'getProfile'])->name('profile.client.get');
+Route::post('/profile', [\App\Http\Controllers\PageController::class, 'postProfile'])->name('profile.client.post');
 
 Route::get('/shop/{id?}', [\App\Http\Controllers\PageController::class, 'shop'])->name('shop');
 Route::get('/search', [\App\Http\Controllers\PageController::class, 'search'])->name('search');

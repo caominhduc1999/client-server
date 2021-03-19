@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->string('email')->nullable();
             $table->string('address');
             $table->integer('payment_method_id');
+            $table->integer('payment_status')->nullable();
             $table->timestamps();
         });
     }

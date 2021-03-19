@@ -54,6 +54,12 @@
                                         <dd>{{$order->email}}</dd>
                                         <dt>Address</dt>
                                         <dd>{{$order->address}}</dd>
+                                        <dt>Payment Method</dt>
+                                        <dd>{{$order->payment_method_id == 1 ? 'COD' : 'Stripe'}}</dd>
+                                        <dt>Payment Status</dt>
+                                        <dd>{{$order->payment_status == 0 ? 'Unpaid' : 'Paid'}}</dd>
+                                        <dt>Total Price</dt>
+                                        <dd>${{number_format($order->total, 2)}}</dd>
                                     </dl>
                                 </div>
                                 <!-- /.card-body -->

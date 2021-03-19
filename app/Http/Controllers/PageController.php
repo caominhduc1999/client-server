@@ -32,6 +32,11 @@ class PageController extends Controller
         return view('frontend.index', compact('latestProducts', 'featureProducts', 'hotProducts', 'topSellerProducts'));
     }
 
+    public function getProfile()
+    {
+        return view('frontend.profile');
+    }
+
     public function shop($id = null)
     {
         if ($id) {
@@ -124,6 +129,7 @@ class PageController extends Controller
         $order->email = $request->email ? $request->email : session()->get('email');
         $order->address = $request->address ? $request->address : session()->get('address');
         $order->payment_method_id = $request->payment_method ? $request->payment_method : session()->get('payment_method');
+        $order->payment_status = 0;
 
         $order->save();
 
@@ -149,6 +155,8 @@ class PageController extends Controller
                 "source" => $request->stripeToken,
                 "description" => "Purchase for instrumental music !"
             ]);
+            $order->payment_status = 1;
+            $order->save();
         }
 
         \Cart::session($userId)->clear();
