@@ -80,7 +80,7 @@
                                                     <td>{{$user->name}}</td>
                                                     <td>{{$user->email}}</td>
                                                     <td>{{$user->phone}}</td>
-                                                    <td>{{$user->user_type}}</td>
+                                                    <td>{{$user->getUserType()}}</td>
                                                     <td style="display: flex">
                                                         <a href="{{route('users.edit', $user->id)}}">
                                                             <button class="btn btn-outline-warning">Edit</button>

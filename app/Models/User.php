@@ -88,4 +88,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wishlist::class);
     }
+
+    public function getUserType()
+    {
+        switch ($this->user_type) {
+            case 1:
+                return 'Admin';
+                break;
+            case 3:
+                return 'Vendor';
+                break;
+            default:
+                return 'Customer';
+                break;
+        }
+    }
 }

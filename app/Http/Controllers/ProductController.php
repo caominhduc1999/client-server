@@ -97,9 +97,6 @@ class ProductController extends Controller
         $product->update($request->all());
 
         if ($request->hasFile('image')){ // nếu update ảnh
-            $request->validate([
-                'image'   =>  'image|mimes:jpg,png,jpeg',
-            ]);
             foreach($product->image as $file) {
                 Storage::delete($file->url); //xóa ảnh cũ
             }

@@ -35,20 +35,20 @@
                                     <label for="exampleInputEmail1">Name</label>
                                     <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" value="{{$paymentMethod->name}}">
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Status</label>
-                                        <select class="form-control" name="status" id="">
-                                            <option value="0" @if($paymentMethod->status == 0) selected @endif>Deactive</option>
-                                            <option value="1" @if($paymentMethod->status == 1) selected @endif>Active</option>
-                                        </select>
-                                        @if ($errors->has('status'))
-                                            <div class="alert alert-danger">
-                                                {{ $errors->first('status') }}
-                                            </div>
-                                        @endif
-                                    </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Status</label>
+                                    <select class="form-control" name="status" id="">
+                                        <option value="0" @if($paymentMethod->status == 0) selected @endif>Deactive</option>
+                                        <option value="1" @if($paymentMethod->status == 1) selected @endif>Active</option>
+                                    </select>
+                                    @if ($errors->has('status'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('status') }}
+                                        </div>
+                                    @endif
                                 </div>
+
                             </div>
                             <!-- /.card-body -->
 

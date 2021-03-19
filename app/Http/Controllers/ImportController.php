@@ -12,7 +12,6 @@ class ImportController extends Controller
     public function index()
     {
         $imports = Import::orderBy('created_at', 'desc')->get();
-
         return view('backend.imports.index', compact('imports'));
     }
 

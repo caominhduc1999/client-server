@@ -157,7 +157,7 @@
                                                     <p>{!! $comment->body !!}</p>
                                                     <hr>
                                                 @endforeach
-
+                                                @if(\Illuminate\Support\Facades\Auth::check())
                                                 <div class="submit-review">
                                                     <form action="{{route('product_review', $product->id)}}" method="post">
                                                         @csrf
@@ -167,6 +167,11 @@
                                                         <p><input type="submit" value="Submit"></p>
                                                     </form>
                                                 </div>
+                                                @else
+                                                    <div class="submit-review">
+                                                        <a href="{{route('login')}}"><button class="add_to_cart_button" type="button">Login to write Review</button></a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

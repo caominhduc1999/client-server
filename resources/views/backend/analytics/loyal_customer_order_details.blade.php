@@ -33,7 +33,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table id="example1" class="table table-bordered table-striped dataTable"
+                                        <table id="example1" class="table table-bordered table-light dataTable"
                                                role="grid" aria-describedby="example1_info">
                                             <thead>
                                             <tr role="row">
@@ -60,6 +60,8 @@
                                             @foreach($orders as $order)
                                                 <tr>
                                                     <td>Order number: {{$order->id}}</td>
+                                                    <td> </td>
+                                                    <td> </td>
 
                                                 </tr>
                                                 @foreach($order->order_details as $orderItem)

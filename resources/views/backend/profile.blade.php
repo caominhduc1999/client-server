@@ -57,6 +57,15 @@
                                         {{ $errors->first('phone') }}
                                     </div>
                                 @endif
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <input type="text" name="address" class="form-control" id="exampleInputEmail1" placeholder="Enter address" value="{{$user->address}}">
+                                </div>
+                                @if ($errors->has('address'))
+                                    <div class="alert alert-danger">
+                                        {{ $errors->first('address') }}
+                                    </div>
+                                @endif
                             </div>
                             <!-- /.card-body -->
 
