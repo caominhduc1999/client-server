@@ -135,6 +135,21 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Payment Status</label>
+                                    <select class="form-control" name="payment_status" id="">
+                                        <option value="">Select Payment Status</option>
+                                        <option value="0" @if($order->payment_status == 0) selected @endif>Unpaid</option>
+                                        <option value="1" @if($order->payment_status == 1) selected @endif>Paid</option>
+                                    </select>
+                                    @if ($errors->has('status'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('status') }}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
