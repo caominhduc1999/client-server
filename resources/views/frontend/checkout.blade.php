@@ -69,7 +69,7 @@
                                                     <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                         <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
                                                         </label>
-                                                        <input type="text" value="" placeholder="Street address" id="billing_address_1" name="address" class="input-text " required>
+                                                        <input type="text" value="{{\Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->address : ''}}" placeholder="Street address" id="billing_address_1" name="address" class="input-text " required>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-12">
@@ -139,15 +139,6 @@
 
 
                                     <div id="payment">
-                                        <ul class="payment_methods methods">
-                                            @foreach($paymentMethods as $paymentMethod)
-                                                <li class="payment_method_bacs">
-                                                    <input type="radio" data-order_button_text="" checked="checked" value="{{$paymentMethod->id}}" name="payment_method" class="input-radio" id="payment_method_bacs">
-                                                    <label for="payment_method_bacs">{{$paymentMethod->name}}</label>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-
                                         <div class="form-row place-order">
                                             <input type="submit" data-value="Place order" value="Place order" id="place_order" class="button alt">
                                         </div>

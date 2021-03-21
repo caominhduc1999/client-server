@@ -45,9 +45,15 @@
                                     @csrf
                                     <input type="hidden" name="productId" value="{{$product->id}}">
                                     <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" style="width: 100%">
-                                        Add to cart
-                                    </button>
+                                    @if($product->inventory_quantity > 0)
+                                        <button type="submit" style="width: 100%">
+                                            Add to cart
+                                        </button>
+                                    @else
+                                        <button type="submit" disabled="disabled" style="width: 100%; background-color: black">
+                                            Out of Stock
+                                        </button>
+                                    @endif
                                 </form>
                             </div>
                         </div>

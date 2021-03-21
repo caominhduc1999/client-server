@@ -87,6 +87,7 @@ class PageController extends Controller
 
     public function applyCoupon(Request $request)
     {
+        session()->forget('coupon');
         $coupon = Coupon::where([['code', $request->coupon_code],['status', 1]])->first();
         $currentDate = date('Y-m-d');
         if ($coupon && ($currentDate >= $coupon->start_date) && ($currentDate <= $coupon->end_date)) {

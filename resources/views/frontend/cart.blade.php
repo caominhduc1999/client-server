@@ -64,7 +64,7 @@
                                         </td>
 
                                         <td class="product-quantity">
-                                            <div class="quantity buttons_added">
+                                            <div class="quantity buttons_added" style="width: 120px">
                                                 <a href="{{route('cart.decrease_by_one', $item->id)}}"><input type="button" class="minus" value="-"></a>
                                                 <input disabled type="number" size="4" class="input-text qty text" title="Qty" value="{{$item->quantity}}" min="0" step="1">
                                                 <a href="{{route('cart.increase_by_one', $item->id)}}"><input type="button" class="plus" value="+"></a>

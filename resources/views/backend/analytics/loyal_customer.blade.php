@@ -88,12 +88,16 @@
                                             @foreach($customers as $key => $customer)
                                                 <tr>
                                                     <td>{{$key + 1}}</td>
-                                                    <td>{{$customer->name}}</td>
+                                                    <td>{{$customer->name ? $customer->name : '-- Guest --'}}</td>
                                                     <td>{{$customer->email}}</td>
                                                     <td>{{$customer->phone}}</td>
                                                     <td>${{number_format($customer->total, 2)}}</td>
                                                     <td>
-                                                        <a href="{{route('loyal_customer_order_details', $customer->id)}}"><button class="btn btn-primary">Check History</button></a>
+                                                        @if($customer->id)
+                                                            <a href="{{route('loyal_customer_order_details', $customer->id)}}"><button class="btn btn-primary">Check History</button></a>
+                                                        @else
+                                                            <a href="{{route('guest_loyal_customer_order_details', ['phone' => $customer->phone, 'email' => $customer->email])}}"><button class="btn btn-primary">Check History</button></a>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

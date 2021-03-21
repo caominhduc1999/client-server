@@ -52,11 +52,10 @@ class AnalyticsController extends Controller
         $month = $request->month ? $request->month : now()->month;
 
         $customers = DB::table('users')
-            ->join('orders', 'orders.user_id', '=', 'users.id')
+            ->rightJoin('orders', 'orders.user_id', '=', 'users.id')
             ->whereMonth('orders.created_at', '=', $month)
             ->select('users.id', 'users.name', 'orders.user_id', 'orders.phone', 'orders.email', DB::raw('SUM(orders.total) as total'))
             ->groupBy('users.id', 'users.name', 'orders.user_id', 'orders.phone', 'orders.email')
-            ->take(5)
             ->orderBy('total', 'desc')
             ->get();
 
@@ -66,7 +65,15 @@ class AnalyticsController extends Controller
     public function loyalCustomerOrderDetail($userId)
     {
         $orders = Order::with('order_details')->where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+//        dd($orders);
         return view('backend.analytics.loyal_customer_order_details', compact('orders', 'userId'));
+    }
+
+    public function guestLoyalCustomerOrderDetail($phone, $email)
+    {
+        $orders = Order::with('order_details')->where([['phone', $phone], ['email', $email]])->orderBy('created_at', 'desc')->get();
+
+        return view('backend.analytics.loyal_customer_order_details', compact('orders', 'phone'));
     }
 
     public function analyticsImport(Request $request)

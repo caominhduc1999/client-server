@@ -74,6 +74,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('analytics-imports', [\App\Http\Controllers\AnalyticsController::class, 'analyticsImport'])->name('analytics_imports');
     Route::get('analytics-loyal-customer', [\App\Http\Controllers\AnalyticsController::class, 'analyticsLoyalCustomer'])->name('analytics_loyal_customer');
     Route::get('loyal-customer-order-details/{userId}', [\App\Http\Controllers\AnalyticsController::class, 'loyalCustomerOrderDetail'])->name('loyal_customer_order_details');
+    Route::get('guest-loyal-customer-order-details/{phone}/{email}', [\App\Http\Controllers\AnalyticsController::class, 'guestLoyalCustomerOrderDetail'])->name('guest_loyal_customer_order_details');
 
     Route::get('analytics-by-day-export', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByDayExport'])->name('analytics_by_day_export');
     Route::get('analytics-by-month-export', [\App\Http\Controllers\AnalyticsController::class, 'analyticsByMonthExport'])->name('analytics_by_month_export');

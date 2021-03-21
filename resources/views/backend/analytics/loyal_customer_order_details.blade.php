@@ -22,7 +22,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Customer Order History</h3>
-                            Spend Total: <h2>${{number_format(\App\Models\User::find($userId)->orders->sum('total'),2)}}</h2>
+                            Spend Total:
+
+                                <h2>${{number_format($orders->sum('total'),2)}}</h2>
 
                         </div>
                         <!-- /.card-header -->
